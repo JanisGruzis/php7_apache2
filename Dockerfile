@@ -3,8 +3,6 @@ FROM ubuntu:16.04
 MAINTAINER Jānis Gruzis
 
 # Update
-RUN locale-gen en_US.UTF-8
-RUN export LANG=en_US.UTF-8
 RUN apt-key update
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -18,8 +16,6 @@ RUN npm install -g bower
 RUN apt-get install -y wget xvfb libxss1 libgconf-2-4 libnss3-dev
 RUN apt-get install -y apache2 jq acl fpc git unzip rsyslog wkhtmltopdf
 RUN apt-get install -y php php-xml php-curl php-mcrypt php-gd php-mysql php-dev
-RUN rsyslogd
-RUN cron
 
 WORKDIR /tmp
 
