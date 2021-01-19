@@ -1,37 +1,37 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 
 MAINTAINER Jānis Gruzis
 
 # Update
-RUN locale-gen en_US.UTF-8
-RUN export LANG=en_US.UTF-8
-RUN apt-key update
 RUN apt-get update
 RUN apt-get -y upgrade
 
 # Add repositories
 RUN apt-get install -y software-properties-common curl
-RUN add-apt-repository ppa:ecometrica/servers
-RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-RUN apt-key update
-RUN apt-get update
 
 # Node
 RUN apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -y build-essential nodejs
 RUN npm install -g bower
 
 # Install apps
 RUN apt-get install -y wget xvfb libxss1 libgconf-2-4 libnss3-dev
 RUN apt-get install -y apache2 jq acl fpc git unzip rsyslog wkhtmltopdf
-RUN apt-get install -y php7.2 php7.2-xml php7.2-curl php7.2-gd php7.2-mysql php7.2-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y php7.2
+RUN apt-get install -y php7.2-xml
+RUN apt-get install -y php7.2-curl
+RUN apt-get install -y php7.2-gd
+RUN apt-get install -y php7.2-mysql
+RUN apt-get install -y php7.2-dev
+RUN apt-get install -y php7.2-zip
 
 WORKDIR /tmp
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+RUN composer self-update 1.10.19
 
 # Janson
 WORKDIR /tmp
